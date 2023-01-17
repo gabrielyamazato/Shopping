@@ -14,12 +14,24 @@ const removeLoading = () => {
 };
 
 const productGrid = async () => {
-  const dataProductsList = await fetchProductsList('computer');
+  try {
+    const dataProductsList = await fetchProductsList('computer');
 
-  dataProductsList.forEach((element) => {
-    produtoHTML.appendChild(createProductElement(element));
-  });
-  removeLoading();
+    dataProductsList.forEach((element) => {
+      produtoHTML.appendChild(createProductElement(element));
+    });
+    removeLoading();
+  } catch (error) {
+    const erroLoading = () => {
+      const containerError = document.querySelector('body');
+      const e = document.createElement('h1');
+      e.className = 'error';
+      e.innerText = 'Algum erro ocorreu, recarregue a página e tente novamente';
+
+      containerError.appendChild(e);
+    };
+    erroLoading();
+  }
 };
 
 const loading = () => {
@@ -37,6 +49,7 @@ function loadScreen() {
     productGrid();
   } catch (error) {
     console.log(error);
+    erroLoading();
   }
 }
 loadScreen();
