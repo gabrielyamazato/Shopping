@@ -1,5 +1,12 @@
-export const fetchProduct = () => {
-  // seu código aqui
+export const fetchProduct = async (par) => {
+  if (!par) {
+    throw new Error('ID não informado')
+  } else {
+    const response = await fetch(`https://api.mercadolibre.com/items/${par}`);
+    const data = response.json();
+
+    return data
+  }
 };
 
 export const fetchProductsList = async (parametro) => {
