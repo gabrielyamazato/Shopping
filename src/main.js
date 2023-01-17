@@ -13,6 +13,15 @@ const removeLoading = () => {
   getBody.removeChild(getLoad);
 };
 
+const erroLoading = () => {
+  const containerError = document.querySelector('body');
+  const e = document.createElement('h1');
+  e.className = 'error';
+  e.innerText = 'Algum erro ocorreu, recarregue a página e tente novamente';
+
+  containerError.appendChild(e);
+};
+
 const productGrid = async () => {
   try {
     const dataProductsList = await fetchProductsList('computer');
@@ -22,14 +31,6 @@ const productGrid = async () => {
     });
     removeLoading();
   } catch (error) {
-    const erroLoading = () => {
-      const containerError = document.querySelector('body');
-      const e = document.createElement('h1');
-      e.className = 'error';
-      e.innerText = 'Algum erro ocorreu, recarregue a página e tente novamente';
-
-      containerError.appendChild(e);
-    };
     erroLoading();
   }
 };
