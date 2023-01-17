@@ -30,6 +30,7 @@ const productGrid = async () => {
       produtoHTML.appendChild(createProductElement(element));
     });
     removeLoading();
+    pegaBotoes();
   } catch (error) {
     erroLoading();
   }
