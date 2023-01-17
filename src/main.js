@@ -7,13 +7,13 @@ document.querySelector('.cep-button').addEventListener('click', searchCep);
 const produtoHTML = document.querySelector('.products');
 
 const removeLoading = () => {
-  const getLoad = document.querySelector('.loading');
   const getBody = document.querySelector('body');
+  const getH1 = document.querySelector('h1');
 
-  getBody.removeChild(getLoad);
+  getBody.removeChild(getH1);
 };
 
-const erroLoading = () => {
+const errorLoading = () => {
   const containerError = document.querySelector('body');
   const e = document.createElement('h1');
   e.className = 'error';
@@ -30,9 +30,9 @@ const productGrid = async () => {
       produtoHTML.appendChild(createProductElement(element));
     });
     removeLoading();
-    pegaBotoes();
   } catch (error) {
-    erroLoading();
+    console.log(error);
+    errorLoading();
   }
 };
 
