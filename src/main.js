@@ -49,7 +49,6 @@ function loadScreen() {
     productGrid();
   } catch (error) {
     console.log(error);
-    erroLoading();
   }
 }
 loadScreen();
