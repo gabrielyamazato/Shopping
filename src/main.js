@@ -56,12 +56,16 @@ const getStorage = () => {
     getCart.appendChild(createCartProductElement(holdInfo));
   });
 };
-getStorage();
+
+const totalCart = async () => {
+  
+};
 
 function loadScreen() {
   try {
     loading();
     productGrid();
+    getStorage();
   } catch (error) {
     console.log(error);
   }
