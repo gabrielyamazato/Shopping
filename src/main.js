@@ -1,7 +1,8 @@
 import { searchCep } from './helpers/cepFunctions';
 import './style.css';
 import { fetchProduct, fetchProductsList } from './helpers/fetchFunctions';
-import { createCartProductElement, createProductElement } from './helpers/shopFunctions';
+import { createCartProductElement, createProductElement,
+  refreshCart } from './helpers/shopFunctions';
 import { getSavedCartIDs } from './helpers/cartFunctions';
 
 document.querySelector('.cep-button').addEventListener('click', searchCep);
@@ -50,42 +51,23 @@ const getStorage = () => {
   const getCart = document.querySelector('.cart__products');
   const arrayIDs = getSavedCartIDs();
 
-  arrayIDs.forEach(async (id) => {
+  const info = arrayIDs.map(async (id) => {
     const holdInfo = await fetchProduct(id);
-
-    getCart.appendChild(createCartProductElement(holdInfo));
+    return holdInfo;
   });
-};
-
-const refreshCart = () => {
-  const total = document.querySelector('.total-price');
-  const itemsCarrinho = getSavedCartIDs();
-
-  let soma = parseFloat(total.innerText)
-
-  itemsCarrinho.forEach(async (id) => {
-    const z = await fetchProduct(id)
-    
-    soma += parseFloat(z.price)
-    total.innerText = `${soma}`
+  Promise.all(info).then((resp) => {
+    resp.forEach((IDs) => {
+      getCart.appendChild(createCartProductElement(IDs));
+    });
   });
+  refreshCart();
 };
-
-function retiraCarrinho() {
-  const deleteButtonCart = document.querySelectorAll('.cart__product__remove');
-
-  console.log(deleteButtonCart)
-
-  deleteButtonCart.forEach((ab) => ab.addEventListener('click', refreshCart()));
-}
 
 function loadScreen() {
   try {
     loading();
     productGrid();
     getStorage();
-    retiraCarrinho();
-    refreshCart();
   } catch (error) {
     console.log(error);
   }
