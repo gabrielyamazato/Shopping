@@ -23,10 +23,11 @@ export const searchCep = async () => {
 
   Promise.all([info])
     .then((resposta) => {
-      if (resposta[0] === 'undefined - undefined - undefined - undefined') {
-        span.innerText = 'CEP não encontrado';
-      }
       const xd = resposta[0];
-      span.innerText = xd;
+      if (xd === 'undefined - undefined - undefined - undefined') {
+        span.innerText = 'CEP não encontrado';
+      } else {
+        span.innerText = xd;
+      }
     });
 };
