@@ -1,19 +1,16 @@
 export const getAddress = async (input) => {
-  try {
-    const API_1 = fetch(`https://cep.awesomeapi.com.br/json/${input}`);
-    const API_2 = fetch(`https://brasilapi.com.br/api/cep/v2/${input}`);
+  const API_1 = fetch(`https://cep.awesomeapi.com.br/json/${input}`);
+  const API_2 = fetch(`https://brasilapi.com.br/api/cep/v2/${input}`);
 
-    return Promise.any([API_1, API_2])
-      .then((primeiraResposta) => primeiraResposta.json())
-      .then((res) => {
-        if (res.neighborhood === true) {
-          return `${res.street} - ${res.neighborhood} - ${res.city} - ${res.state}`;
-        }
-        return `${res.address} - ${res.district} - ${res.city} - ${res.state}`;
-      });
-  } catch (error) {
-    console.log(error);
-  }
+  return Promise.any([API_1, API_2])
+    .then((primeiraResposta) => primeiraResposta.json())
+    .then((res) => {
+      if (res.neighborhood === true) {
+        return `${res.street} - ${res.neighborhood} - ${res.city} - ${res.state}`;
+      }
+      return `${res.address} - ${res.district} - ${res.city} - ${res.state}`;
+    })
+    .catch(() => 'CEP não encontrado');
 };
 
 export const searchCep = async () => {
