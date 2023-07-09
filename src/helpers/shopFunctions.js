@@ -98,7 +98,7 @@ export const createCartProductElement = ({ id, title, price, pictures }) => {
   const infoContainer = createCustomElement('div', 'cart__product__info-container');
   infoContainer.appendChild(createCustomElement('span', 'product__title', title));
   const priceElement = createCustomElement('span', 'product__price', 'R$ ');
-  priceElement.appendChild(createCustomElement('span', 'product__price__value', price));
+  priceElement.appendChild(createCustomElement('span', 'product__price__value', price.toFixed(2)));
   infoContainer.appendChild(priceElement);
 
   li.appendChild(infoContainer);
@@ -136,7 +136,7 @@ export const createProductElement = ({ id, title, thumbnail, price }) => {
   section.appendChild(createCustomElement('span', 'product__title', title));
 
   const priceElement = createCustomElement('span', 'product__price', 'R$ ');
-  priceElement.appendChild(createCustomElement('span', 'product__price__value', price));
+  priceElement.appendChild(createCustomElement('span', 'product__price__value', price.toFixed(2)));
   section.appendChild(priceElement);
 
   const cartButton = createCustomElement(
